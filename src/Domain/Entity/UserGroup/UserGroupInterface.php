@@ -9,12 +9,6 @@ use Notes\Domain\Entity\User;
 
 interface UserGroupInterface
 {
-    //complete this insterface
-    //public etc..
-    //we want a interface because we are going to have several groups, and we want them
-    //to be able to interact with each other
-
-
     /**
      * @return string
      */
@@ -41,25 +35,5 @@ interface UserGroupInterface
      * @return array
      */
     public function getUsers();
-
-
-    //write tests for UserGroup\Admin and UserGroup\Admin
-    //unit test for User
-    //only implement User
-
-    //implemnet user object
-    //
-
-    //first name, last name, email, username.
-
-    /*
-     * ipmlement User
-     * Usergroup interface
-     * User, Usergroup owner, Usergupe admin
-     */
-
-
-
-
 }
 
