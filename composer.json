@@ -1,0 +1,18 @@
+{
+  "require-dev": {
+    "peridot-php/leo": "1.4.0",
+    "fzaninotto/faker": "1.6.x-dev",
+    "peridot-php/peridot-prophecy-plugin": "1.1.0",
+    "squizlabs/php_codesniffer": "3.0.x-dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Notes\\": "src/"
+    }
+  },
+  "require": {
+    "silex/silex": "2.0.x-dev",
+    "peridot-php/peridot": "1.16.0",
+    "silex/api": "2.0.x-dev"
+  }
+}
