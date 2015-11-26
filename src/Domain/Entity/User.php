@@ -37,9 +37,10 @@ class User
 
     /**
      * User constructor.
+     * @param Uuid $uuid
      * @param StringLiteral $username
      */
-    public function __construct(StringLiteral $username)
+    public function __construct(Uuid $uuid, StringLiteral $username)
     {
         $this->username = $username;
         $this->id = new Uuid();

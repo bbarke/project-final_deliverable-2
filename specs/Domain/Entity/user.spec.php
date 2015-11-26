@@ -5,11 +5,12 @@
 
 use Notes\Domain\Entity\User;
 use Notes\Domain\ValueObject\StringLiteral;
+use Notes\Domain\ValueObject\Uuid;
 
 describe('Notes\Domain\Entity\User', function(){
     describe('->__construct()', function (){
        it('should return a User object', function() {
-           $actual = new User(StringLiteral::EMPTY_STR);
+           $actual = new User(new Uuid(), StringLiteral::EMPTY_STR);
            expect($actual)->to->be->instanceof('Notes\Domain\Entity\User');
        });
     });
@@ -18,8 +19,11 @@ describe('Notes\Domain\Entity\User', function(){
         it('should return the user\'s username', function() {
             $faker = \Faker\Factory::create();
             $username = new StringLiteral($faker->userName);
-            $user = new User($username);
+            $user = new User(new Uuid(), $username);
             expect($user->getUsername())->equal($username);
+            expect($user->getUsername())->to->be
+                ->instanceof('Notes\Domain\ValueObject\StringLiteral');
+
         });
     });
 
@@ -27,19 +31,26 @@ describe('Notes\Domain\Entity\User', function(){
         it('should set the user\'s username', function() {
             $faker = \Faker\Factory::create();
             $username = new StringLiteral($faker->userName);
-            $user = new User(StringLiteral::EMPTY_STR);
+            $user = new User(new Uuid(), StringLiteral::EMPTY_STR);
             $user->setUsername($username);
             expect($user->getUsername())->equal($username);
+            expect($user->getUsername())->to->be
+                ->instanceof('Notes\Domain\ValueObject\StringLiteral');
         });
     });
 
     describe('->getId()', function (){
         it('should return the user\'s id', function() {
             $faker = \Faker\Factory::create();
-            $username = new StringLiteral($faker->userName);
-            $user = new User($username);
 
-            expect($user->getId())->to->be->instanceof('Notes\Domain\ValueObject\Uuid');
+            $uuid = new Uuid();
+            expect($uuid->isValidV4())->to->be->true();
+            $username = new StringLiteral($faker->userName);
+            $user = new User($uuid, $username);
+            $actual = $user->getId();
+
+            expect($actual)->to->be->instanceof('Notes\Domain\ValueObject\Uuid');
+            expect($actual->__toString())->equal($uuid->__toString());
         });
     });
 
@@ -47,7 +58,7 @@ describe('Notes\Domain\Entity\User', function(){
         it('should return the user\'s email', function() {
             $faker = \Faker\Factory::create();
             $username = new StringLiteral($faker->userName);
-            $user = new User($username);
+            $user = new User(new Uuid(), $username);
             $email = new StringLiteral($faker->email);
 
             $user->setEmail($email);
