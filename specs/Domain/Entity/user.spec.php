@@ -18,8 +18,9 @@ describe('Notes\Domain\Entity\User', function(){
     describe('->getUsername()', function (){
         it('should return the user\'s username', function() {
             $faker = \Faker\Factory::create();
+            $uuid = new Uuid();
             $username = new StringLiteral($faker->userName);
-            $user = new User(new Uuid(), $username);
+            $user = new User($uuid, $username);
             expect($user->getUsername())->equal($username);
             expect($user->getUsername())->to->be
                 ->instanceof('Notes\Domain\ValueObject\StringLiteral');
@@ -31,7 +32,8 @@ describe('Notes\Domain\Entity\User', function(){
         it('should set the user\'s username', function() {
             $faker = \Faker\Factory::create();
             $username = new StringLiteral($faker->userName);
-            $user = new User(new Uuid(), StringLiteral::EMPTY_STR);
+            $uuid = new Uuid();
+            $user = new User($uuid, StringLiteral::EMPTY_STR);
             $user->setUsername($username);
             expect($user->getUsername())->equal($username);
             expect($user->getUsername())->to->be
@@ -70,7 +72,8 @@ describe('Notes\Domain\Entity\User', function(){
         it('should return the user\'s first name', function() {
             $faker = \Faker\Factory::create();
             $username = new StringLiteral($faker->userName);
-            $user = new User($username);
+            $uuid = new Uuid();
+            $user = new User($uuid, $username);
 
             $first = new StringLiteral($faker->firstName);
             $user->setFirstName($first);
@@ -82,8 +85,10 @@ describe('Notes\Domain\Entity\User', function(){
     describe('->getLastName()', function (){
         it('should return the user\'s last name', function() {
             $faker = \Faker\Factory::create();
+            $uuid = new Uuid();
             $username = new StringLiteral($faker->userName);
-            $user = new User($username);
+            $uuid = new Uuid();
+            $user = new User($uuid, $username);
 
             $lastName = new StringLiteral($faker->lastName);
             $user->setLastName($lastName);

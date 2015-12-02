@@ -9,15 +9,49 @@
 namespace Notes\Domain\Entity;
 
 
+use Notes\Domain\ValueObject\StringLiteral;
 use Notes\Domain\ValueObject\Uuid;
 
 interface UserRepositoryInterface
 {
+    /**
+     * @param User $user
+     */
     public function add(User $user);
+
+    /**
+     * @return array
+     */
     public function getUsers();
 
+    /**
+     * @param Uuid $uuid
+     * @return User
+     */
     public function getById(Uuid $uuid);
+
+    /**
+     * @param StringLiteral $username
+     * @return User
+     */
+    public function getByUserName(StringLiteral $username);
+
+    /**
+     * @param Uuid $uuid
+     * @param User $user
+     */
     public function modifyById(Uuid $uuid, User $user);
-    public function removeBId(Uuid $uuid);
+
+
+    /**
+     * @param StringLiteral $username
+     * @param User $user
+     */
+    public function modifyByUserName(StringLiteral $username, User $user);
+
+    /**
+     * @param Uuid $uuid
+     */
+    public function removeById(Uuid $uuid);
 
 }

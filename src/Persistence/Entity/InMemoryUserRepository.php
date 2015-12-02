@@ -32,45 +32,13 @@ class InMemoryUserRepository implements UserRepositoryInterface
         $this->users[] = $user;
     }
 
-    public function remove(User $user)
-    {
-        // TODO: Implement remove() method.
-    }
-
+    /**
+     * @return array
+     */
     public function getUsers()
     {
         // TODO: Implement getUsers() method.
     }
-
-    public function modify(User $user)
-    {
-        // TODO: Implement modify() method.
-    }
-
-    /**
-     * @param StringLiteral $search
-     * @param User $newUser
-     */
-    public function modifyByUsername(StringLiteral $search, User $newUser)
-    {
-
-        //one way of doing it
-
-        $oldUser = $this->searchByUserName($search);
-        if(!$this->remove($oldUser)) {
-            throw new \RuntimeException('ERROR removing ' . serialize($oldUser));
-        }
-        //add user back into the array
-        $this->users[] = $newUser;
-
-
-        //this way can be slower
-        $oldUser = $this->searchByUsername($search);
-        $oldUser = $newUser;
-
-
-    }
-
 
     /**
      * @param Uuid $uuid
@@ -92,6 +60,38 @@ class InMemoryUserRepository implements UserRepositoryInterface
         }
 
         return $results;
+    }
+
+    /**
+     * @param StringLiteral $username
+     */
+    public function getByUserName(StringLiteral $username)
+    {
+        // TODO: Implement getByUserName() method.
+    }
+
+    /**
+     * @param StringLiteral $search
+     * @param User $newUser
+     */
+    public function modifyByUsername(StringLiteral $search, User $newUser)
+    {
+        //one way of doing it
+        $oldUser = $this->getByUserName($search);
+        if(!$this->removeById($oldUser->getId())) {
+            throw new \RuntimeException('ERROR removing ' . serialize($oldUser));
+        }
+        //add user back into the array
+        $this->users[] = $newUser;
+    }
+
+    /**
+     * @param Uuid $uuid
+     * @param User $user
+     */
+    public function modifyById(Uuid $uuid, User $user)
+    {
+        // TODO: Implement modifyById() method.
     }
 
     /**
